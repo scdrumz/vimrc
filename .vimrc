@@ -58,12 +58,16 @@ set foldlevelstart=10
 let mapleader=","
 nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 nnoremap <leader>h :A<CR>
-nnoremap <leader>ev :vsp $confpath/.vimrc<CR>
-nnoremap <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <leader>sv :source $confpath/.vimrc<CR>
 nnoremap <leader<space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
-
+if win_shell
+    nnoremap <leader>ev :vsp ~/vimfiles/.vimrc<CR>
+    nnoremap <leader>sv :source ~/vimfiles/.vimrc<CR>
+else
+    nnoremap <leader>ev :vsp ~/.vim/.vimrc<CR>
+    nnoremap <leader>ez :vsp ~/.zshrc<CR>
+    nnoremap <leader>sv :source ~/.vim/.vimrc<CR>
+endif
 vnoremap <leader>y "+y
 " }}}
 " CtrlP {{{
@@ -104,6 +108,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
+Plugin 'valloric/YouCompleteMe'
 
 call vundle#end()
 
