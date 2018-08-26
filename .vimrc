@@ -60,6 +60,9 @@ nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 nnoremap <leader>h :A<CR>
 nnoremap <leader<space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
+nnoremap <leader>a :Ags
+nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
+nnoremap <leader>o :NERDTreeToggle<CR>
 if win_shell
     nnoremap <leader>ev :vsp ~/vimfiles/.vimrc<CR>
     nnoremap <leader>sv :source ~/vimfiles/.vimrc<CR>
@@ -74,6 +77,7 @@ vnoremap <leader>y "+y
 let g:ctrlp_match_window  = 'bottom,order,ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swap|pyc|egg)$'
 " }}}
 " Syntastic {{{
@@ -84,7 +88,9 @@ let g:syntastic_python_python_exec = 'python'
 augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.py,*.txt,*.md,*.cc,*.hh :call <SID>StripTrailingWhitespace()
+    autocmd BufWritePre *.py,*.txt,*.md,*.cc,*.hh :call <SID>StripTrailingWhitespaces()
+    autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<CR>
+    autocmd BufNewFile,BufReadPost *.feature,*.story setlocal ft=cucumber
     autocmd BufEnter *.md setlocal ft=markdown
 augroup END
 " }}}
@@ -109,6 +115,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 Plugin 'valloric/YouCompleteMe'
+Plugin 'gabesoft/vim-ags'
 
 call vundle#end()
 
@@ -116,6 +123,15 @@ filetype plugin indent on
 " }}}
 " Custom Functions {{{
 function! <SID>StripTrailingWhitespaces()
+    " save last search and cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunc
+function! <SID>CleanFile()
     " save last search and cursor position
     let _s=@/
     let l = line(".")
