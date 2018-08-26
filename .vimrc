@@ -3,6 +3,7 @@
 let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
 let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 if win_shell
+    set encoding=utf-8
     set rtp+=~/vimfiles/bundle/Vundle.vim/
     let confpath='~/vimfiles/'
 else
