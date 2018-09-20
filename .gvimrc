@@ -1,0 +1,1 @@
+set guifont=Inconsolata_for_Powerline:h14
