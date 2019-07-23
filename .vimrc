@@ -20,6 +20,7 @@ set termguicolors
 " Misc {{{
 set backspace=indent,eol,start
 set autoread
+set exrc
 " }}}
 " Spaces & Tabs {{{
 set tabstop=4
@@ -104,6 +105,9 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " YouCompleteMe {{{
 let g:ycm_autoclose_preview_window_after_completion=1
 " }}}
+" AsyncRun {{{
+let g:asyncrun_open = 8
+" }}}
 " Autogroups {{{
 augroup configgroup
     autocmd!
@@ -129,9 +133,9 @@ augroup END
 " }}}
 " Backup {{{
 set backup
-set backupdir=~/vimfiles/tmp,~/.vim-tmp,~./.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=~/vimfiles/tmp,~/tmp/*,/private/tmp/*
-set directory=~/vimfiles/tmp,~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/vimfiles/tmp,~/.vim-tmp,~./.tmp,~/tmp,/var/tmp,/tmp,C:\\Users\\joe\\vimfiles\\tmp
+set backupskip=~/vimfiles/tmp,~/tmp/*,/private/tmp/*,C:\\Users\\joe\\vimfiles\tmp
+set directory=~/vimfiles/tmp,~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,C:\\Users\\joe\\vimfiles\\tmp
 set writebackup
 " }}}
 " Vim Plugins {{{
@@ -152,6 +156,9 @@ Plugin 'gabesoft/vim-ags'
 Plugin 'sjl/gundo.vim'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim'}
 Plugin 'airblade/vim-gitgutter'
+Plugin 'qpkorr/vim-bufkill'
+Plugin 'skywind3000/asyncrun.vim'
+Plugin 'tpope/vim-surround'
 
 call vundle#end()
 
@@ -179,5 +186,7 @@ function! <SID>CleanFile()
     call cursor(l, c)
 endfunc
 " }}}
-
+" Custom Cleanup {{{
+set secure
+" }}}
 " vim:foldmethod=marker:foldlevel=0
