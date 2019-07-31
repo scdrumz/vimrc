@@ -21,6 +21,7 @@ set termguicolors
 set backspace=indent,eol,start
 set autoread
 set exrc
+set scrolloff=10
 " }}}
 " Spaces & Tabs {{{
 set tabstop=4
